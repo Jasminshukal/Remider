@@ -1,10 +1,8 @@
-/* eslint-disable no-undef */
+// Import the required Firebase scripts
+importScripts("https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js");
 
-// Import Firebase scripts
-importScripts("https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/9.17.1/firebase-messaging-compat.js");
-
-// Firebase configuration
+// Your Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCgQ-QKupCOWELFOeVO-2XpkCmvF-PGIXw",
     authDomain: "expense-traker-817a6.firebaseapp.com",
@@ -18,17 +16,15 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Retrieve Firebase Messaging instance
+// Initialize Firebase Messaging
 const messaging = firebase.messaging();
 
 // Handle background messages
 messaging.onBackgroundMessage((payload) => {
-  console.log("[firebase-messaging-sw.js] Received background message ", payload);
-
-  const notificationTitle = payload.notification?.title || "Background Notification";
+  console.log("Received background message: ", payload);
+  const notificationTitle = payload.notification.title;
   const notificationOptions = {
-    body: payload.notification?.body || "Background Notification body.",
-    icon: payload.notification?.icon || "/firebase-logo.png",
+    body: payload.notification.body,
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
