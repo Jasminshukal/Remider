@@ -7,12 +7,15 @@ import { requestUserToken } from './Notification'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [token, setToken] = useState('')
 
   useEffect(() => {
     // Request user token on app load
     requestUserToken().then((token) => {
       if (token) {
+
         console.log("FCM Token received:", token);
+        setToken(token);
         // Send the token to your server to associate it with the user
       }
     });
@@ -34,7 +37,7 @@ function App() {
           count is {count}
         </button>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          <code>{token}</code>
         </p>
       </div>
       <p className="read-the-docs">
